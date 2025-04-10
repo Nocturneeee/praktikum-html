@@ -1,21 +1,22 @@
-name: Deploy HTML to Azure Web App
+name: Deploy static HTML to Azure Web App
 
 on:
   push:
     branches:
-      - main  # Ganti sesuai nama branch kamu
+      - main
 
 jobs:
-  build-and-deploy:
+  deploy:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Deploy to Azure Web App
-      uses: azure/webapps-deploy@v2
-      with:
-        app-name: webpraktikum4  # Ganti sesuai nama App Service kamu
-        publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
-        package: .
+      - name: Deploy to Azure Web App
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: webpraktikum4                    # Ganti sesuai nama App Service kamu
+          slot-name: production
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE }}
+          package: .
